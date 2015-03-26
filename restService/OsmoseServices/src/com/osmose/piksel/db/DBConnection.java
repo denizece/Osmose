@@ -30,6 +30,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ws.rs.Produces;
+
 import org.apache.http.client.ClientProtocolException;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -88,7 +90,6 @@ public class DBConnection {
 		} catch(SQLException e) {}
 	}
 
-
 	public JSONObject addARNotification(int userId, int domainId, String objId,int functionId) throws JSONException, SQLException {
 		
 		JSONObject resp = new JSONObject();
@@ -102,6 +103,7 @@ public class DBConnection {
 			preparedStatement.setString(4, objId);
 			preparedStatement.executeUpdate();
 			mysqlCon.commit();
+			resp.put("message", "OK");
 		}
 		catch (SQLException e)
 		{
@@ -128,6 +130,7 @@ public class DBConnection {
 			preparedStatement.setInt(1, idNotifications);
 			preparedStatement.executeUpdate();
 			mysqlCon.commit();
+			resp.put("message", "OK");
 		}
 		catch (SQLException e)
 		{

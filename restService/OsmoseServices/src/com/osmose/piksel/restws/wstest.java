@@ -32,15 +32,18 @@ public class wstest {
 	
 	@Path("/addARNotification")
 	@POST
+	@Produces("application/json")
 	public JSONWithPadding addARNotification(@QueryParam("callback") String callback, @FormParam("userid") int userId, @FormParam("domainid") int domainId, @FormParam("objid") String objId, @FormParam("functionId") int functionId) throws JSONException, SQLException, ParseException
 	{
 		DBConnection dbconn = new DBConnection();
 		JSONObject resp = dbconn.addARNotification(userId, domainId, objId, functionId);
-        return (new JSONWithPadding(resp, callback));
+		JSONWithPadding jsonpRet = new JSONWithPadding(resp, callback);
+		return (jsonpRet);
 	}
 	
 	@Path("/consumeNotification")
 	@POST
+	@Produces("application/json")
 	public JSONWithPadding consumeNotification(@QueryParam("callback") String callback, @FormParam("idNotifications") int idNotifications) throws JSONException, SQLException, ParseException
 	{
 		DBConnection dbconn = new DBConnection();
@@ -106,6 +109,7 @@ public class wstest {
 	
 	@Path("/setObjStatus/{objId}/{statusId}")
 	@POST
+	@Produces("application/json")
 	public JSONWithPadding setObjStatus(@QueryParam("callback") String callback,  @PathParam("objId") String objId,  @PathParam("statusId") int statusId) throws JSONException, SQLException, ParseException
 	{
 		DBConnection dbconn = new DBConnection();
